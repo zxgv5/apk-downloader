@@ -322,7 +322,7 @@ async fn main() {
                     ).await;
                 } else {
                     let mut aas_token = matches.get_one::<String>("google_aas_token").map(|v| v.to_string());
-                    let accept_tos = match matches.get_one::<bool>("list_versions") {
+                    let accept_tos = match matches.get_one::<bool>("google_accept_tos") {
                         Some(true) => true,
                         _ => false,
                     };
