@@ -28,6 +28,12 @@ apkeep -a com.instagram.android -d google-play -o device=ad_g3_pro -e 'someone@g
 
 Available devices are specified [here](https://github.com/EFForg/rs-google-play/blob/master/gpapi/device.properties).
 
+To specify your own device properties file (e.g. one you've exported from Aurora Store's spoof manager):
+
+```shell
+apkeep -a com.instagram.android -d google-play -o device=default,device_properties_file=/path/to/device.properties .
+```
+
 Likewise, a separate timezone or locale can also be specified:
 
 ```shell
@@ -49,6 +55,7 @@ apkeep -a hk.easyvan.app.client -d google-play -o split_apk=true -e 'someone@gma
 A full list of options:
 
 * `device`: specify a device profile as described above
+* `device_properties_file`: specify a custom device properties file
 * `locale`: specify a locale
 * `timezone`: specify a timezone 
 * `split_apk`: when set to `1` or `true`, attempts to download a [split APK](https://developer.android.com/studio/build/configure-apk-splits)

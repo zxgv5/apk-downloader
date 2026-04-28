@@ -33,8 +33,10 @@ pub async fn download_apps(
         Some(val) if val == "1" || val.to_lowercase() == "true" => true,
         _ => false,
     };
-    let mut gpa = Gpapi::new(device, email);
-
+    let mut gpa = match options.remove("device_properties_file") {
+        None => Gpapi::new(device, email),
+        Some(file) => Gpapi::from_device_properties_file(device, email, file)
+    };
     if let Some(locale) = options.remove("locale") {
         gpa.set_locale(locale);
     }
@@ -133,7 +135,10 @@ pub async fn request_aas_token(
     mut options: HashMap<&str, &str>,
 ) {
     let device = options.remove("device").unwrap_or("px_9a");
-    let mut api = Gpapi::new(device, email);
+    let mut api = match options.remove("device_properties_file") {
+        None => Gpapi::new(device, email),
+        Some(file) => Gpapi::from_device_properties_file(device, email, file)
+    };
     match api.request_aas_token(oauth_token).await {
         Ok(()) => {
             let aas_token = api.get_aas_token().unwrap();
